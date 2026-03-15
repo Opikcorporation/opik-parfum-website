@@ -257,7 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // --- Gallery Slider ---
+// --- Gallery Slider (native scroll-snap + dots sync) ---
     const initGallerySlider = () => {
         const track = document.getElementById('galleryTrack');
         const dotsContainer = document.getElementById('galleryDots');
@@ -268,9 +268,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (total === 0) return;
 
         let current = 0;
-        let startX = 0;
-        let deltaX = 0;
-        let isDragging = false;
 
         // Create dots
         slides.forEach((_, i) => {
@@ -278,97 +275,28 @@ document.addEventListener('DOMContentLoaded', () => {
             dot.classList.add('gallery__dot');
             if (i === 0) dot.classList.add('is-active');
             dot.setAttribute('aria-label', `Image ${i + 1}`);
-            dot.addEventListener('click', () => goTo(i));
+            dot.addEventListener('click', () => {
+                slides[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+            });
             dotsContainer.appendChild(dot);
         });
 
         const dots = dotsContainer.querySelectorAll('.gallery__dot');
 
-        const goTo = (index) => {
-            current = ((index % total) + total) % total;
-            track.style.transform = `translateX(-${current * 100}%)`;
-            dots.forEach((d, i) => d.classList.toggle('is-active', i === current));
-        };
-
-        const next = () => goTo(current + 1);
-
-        // Touch events
-        let touchStartY = 0;
-        let isHorizontalSwipe = null;
-        let touchLocked = false;
-
-        track.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].clientX;
-            touchStartY = e.touches[0].clientY;
-            isDragging = true;
-            isHorizontalSwipe = null;
-            touchLocked = false;
-            deltaX = 0;
-            track.style.transition = 'none';
-        }, { passive: true });
-
-        track.addEventListener('touchmove', (e) => {
-            if (!isDragging || touchLocked) return;
-            const dx = e.touches[0].clientX - startX;
-            const dy = e.touches[0].clientY - touchStartY;
-
-            // Determine swipe direction on first significant move
-            if (isHorizontalSwipe === null && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) {
-                isHorizontalSwipe = Math.abs(dx) > Math.abs(dy);
-                if (!isHorizontalSwipe) {
-                    // It's a vertical scroll, stop tracking
-                    isDragging = false;
-                    touchLocked = true;
-                    track.style.transition = '';
-                    return;
+        // Update dots on scroll
+        let scrollTimeout;
+        track.addEventListener('scroll', () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                const scrollLeft = track.scrollLeft;
+                const slideWidth = track.offsetWidth;
+                const newIndex = Math.round(scrollLeft / slideWidth);
+                if (newIndex !== current && newIndex >= 0 && newIndex < total) {
+                    current = newIndex;
+                    dots.forEach((d, i) => d.classList.toggle('is-active', i === current));
                 }
-            }
-
-            if (isHorizontalSwipe) {
-                e.preventDefault();
-                deltaX = dx;
-                const offset = -(current * 100) + (deltaX / track.offsetWidth) * 100;
-                track.style.transform = `translateX(${offset}%)`;
-            }
-        }, { passive: false });
-
-        track.addEventListener('touchend', () => {
-            isDragging = false;
-            track.style.transition = '';
-            if (Math.abs(deltaX) > 40) {
-                deltaX < 0 ? goTo(current + 1) : goTo(current - 1);
-            } else {
-                goTo(current);
-            }
-            deltaX = 0;
-        });
-
-        // Mouse drag
-        track.addEventListener('mousedown', (e) => {
-            startX = e.clientX;
-            isDragging = true;
-            track.style.transition = 'none';
-            e.preventDefault();
-        });
-
-        window.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            deltaX = e.clientX - startX;
-            const offset = -(current * 100) + (deltaX / track.offsetWidth) * 100;
-            track.style.transform = `translateX(${offset}%)`;
-        });
-
-        window.addEventListener('mouseup', () => {
-            if (!isDragging) return;
-            isDragging = false;
-            track.style.transition = '';
-            if (Math.abs(deltaX) > 40) {
-                deltaX < 0 ? goTo(current + 1) : goTo(current - 1);
-            } else {
-                goTo(current);
-            }
-            deltaX = 0;
-        });
+            }, 50);
+        }, { passive: true });
     };
 
     // --- Init ---
