@@ -295,33 +295,41 @@ document.addEventListener('DOMContentLoaded', () => {
         // Touch events
         let touchStartY = 0;
         let isHorizontalSwipe = null;
+        let touchLocked = false;
 
         track.addEventListener('touchstart', (e) => {
             startX = e.touches[0].clientX;
             touchStartY = e.touches[0].clientY;
             isDragging = true;
             isHorizontalSwipe = null;
+            touchLocked = false;
             deltaX = 0;
             track.style.transition = 'none';
         }, { passive: true });
 
         track.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
+            if (!isDragging || touchLocked) return;
             const dx = e.touches[0].clientX - startX;
             const dy = e.touches[0].clientY - touchStartY;
 
             // Determine swipe direction on first significant move
-            if (isHorizontalSwipe === null && (Math.abs(dx) > 5 || Math.abs(dy) > 5)) {
+            if (isHorizontalSwipe === null && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) {
                 isHorizontalSwipe = Math.abs(dx) > Math.abs(dy);
+                if (!isHorizontalSwipe) {
+                    // It's a vertical scroll, stop tracking
+                    isDragging = false;
+                    touchLocked = true;
+                    track.style.transition = '';
+                    return;
+                }
             }
 
-            if (!isHorizontalSwipe) return;
-
-            // Prevent vertical scroll during horizontal swipe
-            e.preventDefault();
-            deltaX = dx;
-            const offset = -(current * 100) + (deltaX / track.offsetWidth) * 100;
-            track.style.transform = `translateX(${offset}%)`;
+            if (isHorizontalSwipe) {
+                e.preventDefault();
+                deltaX = dx;
+                const offset = -(current * 100) + (deltaX / track.offsetWidth) * 100;
+                track.style.transform = `translateX(${offset}%)`;
+            }
         }, { passive: false });
 
         track.addEventListener('touchend', () => {

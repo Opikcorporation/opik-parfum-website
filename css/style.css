@@ -152,6 +152,7 @@ img {
 /* --- Accordions --- */
 .accordions {
     padding: 0 1.5rem;
+    margin-top: 2rem;
 }
 
 .accordions__inner {
@@ -164,7 +165,11 @@ img {
 }
 
 .accordion:first-child {
-    border-top: 1px solid var(--grey-200);
+    border-top: none;
+}
+
+.accordion:last-child {
+    border-bottom: none;
 }
 
 .accordion__header {
@@ -192,8 +197,8 @@ img {
 
 .accordion__icon {
     position: relative;
-    width: 16px;
-    height: 16px;
+    width: 12px;
+    height: 12px;
     flex-shrink: 0;
 }
 
@@ -210,7 +215,7 @@ img {
     top: 50%;
     left: 0;
     right: 0;
-    height: 1.5px;
+    height: 1px;
     transform: translateY(-50%);
 }
 
@@ -219,7 +224,7 @@ img {
     left: 50%;
     top: 0;
     bottom: 0;
-    width: 1.5px;
+    width: 1px;
     transform: translateX(-50%);
 }
 
@@ -303,7 +308,7 @@ img {
     height: 100vw;
     max-height: 500px;
     overflow: hidden;
-    touch-action: pan-y pinch-zoom;
+    touch-action: none;
     cursor: grab;
     -webkit-user-select: none;
     user-select: none;
