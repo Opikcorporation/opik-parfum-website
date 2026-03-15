@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>OPIK | Nuage d'Opik</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=cal-sans@1&display=swap" rel="stylesheet">
+    <meta name="description" content="Nuage d'Opik, Eau de Parfum exclusive. Précommande limitée.">
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+<body>
+
+    <!-- Hero / Product -->
+    <main>
+        <section class="hero">
+            <img src="img/nuage.jpg" alt="Nuage d'Opik, Eau de Parfum" class="hero__image">
+            <div class="hero__overlay"></div>
+            <div class="hero__content">
+                <span class="hero__tag">Édition Exclusive</span>
+                <h1 class="hero__title">Nuage d'Opik</h1>
+                <p class="hero__subtitle">Eau de Parfum</p>
+                <p class="hero__price">€ 140.00</p>
+            </div>
+        </section>
+
+        <!-- Accordions -->
+        <section class="accordions">
+            <div class="accordions__inner">
+
+                <!-- Détails produit -->
+                <div class="accordion is-open">
+                    <button class="accordion__header" aria-expanded="true">
+                        <span class="accordion__title">Détails du produit</span>
+                        <span class="accordion__icon"></span>
+                    </button>
+                    <div class="accordion__body">
+                        <div class="accordion__content">
+                            <p class="accordion__text">
+                                Une fragrance d'exception conçue pour ceux qui refusent l'ordinaire. 
+                                Nuage d'Opik capture une élégance rare, comme suspendue entre ciel et peau.
+                            </p>
+                            <p class="accordion__text">
+                                Sa composition révèle une texture à la fois aérienne, gourmande et 
+                                délicatement crémeuse. Les matières se dévoilent avec douceur et laissent 
+                                derrière elles un sillage subtil, à la fois présent et raffiné.
+                            </p>
+                            <p class="accordion__text">
+                                Inspiré par la minéralité et le silence des paysages lunaires, 
+                                Nuage d'Opik évoque une élégance venue d'ailleurs.
+                            </p>
+                            <p class="accordion__text">
+                                <strong>Nuage d'Opik, L'élégance cosmique.</strong>
+                            </p>
+                            <div class="accordion__keynotes">
+                                <strong class="accordion__keynotes-label">Notes clés</strong>
+                                <p class="accordion__keynotes-list">Le cacao d'exception de Chuao au Venezuela, l'ambre gris venu des côtes de Nouvelle-Zélande et l'amande d'Avola, célèbre variété sicilienne.</p>
+                            </div>
+                            <div class="accordion__specs">
+                                <p class="accordion__text">
+                                    50 ml | Extrait de Parfum<br>
+                                    Édition limitée | Disponible sur liste d'attente<br>
+                                    Famille olfactive : Boisé ambré gourmand<br>
+                                    Création unisexe
+                                </p>
+                                <p class="accordion__text accordion__text--small">
+                                    Usage externe uniquement. Éviter le contact avec les yeux. En cas d'irritation, cesser l'utilisation.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comment l'utiliser -->
+                <div class="accordion">
+                    <button class="accordion__header" aria-expanded="false">
+                        <span class="accordion__title">Comment l'utiliser</span>
+                        <span class="accordion__icon"></span>
+                    </button>
+                    <div class="accordion__body">
+                        <div class="accordion__content">
+                            <p class="accordion__text">
+                                Vaporisez sur les points de pulsation : poignets, cou, derrière les oreilles.
+                                pour une diffusion optimale. Ne frottez pas, laissez le parfum se révéler naturellement.
+                            </p>
+                            <p class="accordion__text">
+                                Pour une tenue prolongée, appliquez sur une peau hydratée. 
+                                Conservez le flacon à l'abri de la lumière et de la chaleur.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Galerie produit -->
+        <section class="gallery">
+            <div class="gallery__slider" id="gallerySlider">
+                <div class="gallery__track" id="galleryTrack">
+                    <div class="gallery__slide">
+                        <img src="img/product-1.jpg" alt="Nuage d'Opik, Vue 1" class="gallery__img">
+                    </div>
+                    <div class="gallery__slide">
+                        <img src="img/product-2.png" alt="Nuage d'Opik, Vue 2" class="gallery__img">
+                    </div>
+                    <div class="gallery__slide">
+                        <img src="img/product-3.png" alt="Nuage d'Opik, Vue 3" class="gallery__img">
+                    </div>
+                    <div class="gallery__slide">
+                        <img src="img/product-4.png" alt="Nuage d'Opik, Vue 4" class="gallery__img">
+                    </div>
+                </div>
+            </div>
+            <div class="gallery__dots" id="galleryDots"></div>
+        </section>
+
+        <!-- Reviews -->
+        <section class="reviews">
+            <div class="reviews__inner">
+                <h2 class="section-title">Avis</h2>
+                
+                <div class="reviews__list">
+                    <article class="review">
+                        <div class="review__top">
+                            <div class="review__stars">★★★★★</div>
+                            <span class="review__date">24 août 2024</span>
+                        </div>
+                        <h3 class="review__title">Élégant et raffiné</h3>
+                        <p class="review__author">Julien M.</p>
+                        <p class="review__text">
+                            Parfum très élégant. Il est gourmand mais reste léger et raffiné. 
+                            La tenue est excellente sur ma peau.
+                        </p>
+                        <div class="review__meta">
+                            <span class="review__meta-label">Localisation :</span>
+                            <span class="review__meta-value">Liège</span>
+                        </div>
+                        <p class="review__recommend">Oui, je recommande ce produit</p>
+                    </article>
+
+                    <article class="review">
+                        <div class="review__top">
+                            <div class="review__stars">★★★★★</div>
+                            <span class="review__date">25 mars 2025</span>
+                        </div>
+                        <h3 class="review__title">Doux et unique</h3>
+                        <p class="review__author">Sofia R.</p>
+                        <p class="review__text">
+                            Une très belle surprise. Le parfum est doux, crémeux et assez unique. 
+                            Plusieurs personnes m'ont demandé ce que je portais.
+                        </p>
+                        <div class="review__meta">
+                            <span class="review__meta-label">Localisation :</span>
+                            <span class="review__meta-value">Bruxelles</span>
+                        </div>
+                        <p class="review__recommend">Oui, je recommande ce produit</p>
+                    </article>
+
+                    <article class="review">
+                        <div class="review__top">
+                            <div class="review__stars">★★★★★</div>
+                            <span class="review__date">3 mars 2026</span>
+                        </div>
+                        <h3 class="review__title">Tenue incroyable</h3>
+                        <p class="review__author">Alexandre D.</p>
+                        <p class="review__text">
+                            Je l'avais déjà senti sur Alessio, je l'ai acheté directement sans 
+                            réfléchir et je ne suis pas déçue il tient vraiment longtemps sur la peau.
+                        </p>
+                        <div class="review__meta">
+                            <span class="review__meta-label">Localisation :</span>
+                            <span class="review__meta-value">Paris</span>
+                        </div>
+                        <p class="review__recommend">Oui, je recommande ce produit</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer__inner">
+                <div class="footer__top">
+                    <span class="footer__logo">OPIK</span>
+                    <p class="footer__tagline">Nuage d'Opik | Eau de Parfum</p>
+                </div>
+
+                <div class="footer__contact">
+                    <span class="footer__contact-label">Contact</span>
+                    <a href="mailto:contact@opik-parfum.com" class="footer__email">contact@opik-parfum.com</a>
+                </div>
+
+                <div class="footer__legal">
+                    <a href="#" class="footer__link">Mentions légales</a>
+                    <span class="footer__sep">·</span>
+                    <a href="#" class="footer__link">Politique de confidentialité</a>
+                    <span class="footer__sep">·</span>
+                    <a href="#" class="footer__link">Cookies</a>
+                </div>
+
+                <p class="footer__copy">© 2026 OPIK. Tous droits réservés.</p>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Fixed bottom bar -->
+    <div class="sticky-bar" id="stickyBar">
+        <div class="sticky-bar__inner">
+            <div class="sticky-bar__info">
+                <span class="sticky-bar__name">Nuage d'Opik</span>
+                <span class="sticky-bar__price">€ 140.00</span>
+            </div>
+            <button class="sticky-bar__btn" id="stickyBtn">
+                <span class="sticky-bar__btn-text">Liste d'attente</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Waitlist Modal -->
+    <div class="modal" id="waitlistModal">
+        <div class="modal__overlay" id="modalOverlay"></div>
+        <div class="modal__content">
+            <button class="modal__close" id="modalClose">✕</button>
+            <h2 class="modal__title">Rejoindre la liste d'attente</h2>
+            <div class="modal__counter">
+                <span class="modal__counter-number" id="waitlistCount">19</span>
+                <span class="modal__counter-label">personnes en attente</span>
+            </div>
+            <form class="modal__form" id="preorderForm">
+                <input type="text" class="modal__input" id="nameInput" placeholder="Votre prénom" required>
+                <input type="email" class="modal__input" id="emailInput" placeholder="Votre adresse e-mail" required>
+                <button type="submit" class="modal__btn" id="preorderBtn">
+                    <span class="btn__text">Confirmer</span>
+                </button>
+            </form>
+            <p class="modal__note">Vous serez notifié(e) en priorité lors du lancement.</p>
+            <div class="modal__thanks" id="modalThanks">
+                <div class="modal__thanks-icon">✓</div>
+                <h3 class="modal__thanks-title">Merci !</h3>
+                <p class="modal__thanks-text">Vous êtes sur la liste. Nous vous contacterons en priorité dès le lancement.</p>
+                <div class="modal__thanks-code">
+                    <span class="modal__thanks-code-label">Votre numéro</span>
+                    <span class="modal__thanks-code-value" id="waitlistCode"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
