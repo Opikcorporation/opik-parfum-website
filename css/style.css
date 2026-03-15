@@ -62,6 +62,11 @@ img {
     color: var(--grey-600);
 }
 
+/* --- Product Page wrapper (split on desktop) --- */
+.product-page {
+    display: block;
+}
+
 /* --- Hero (fullscreen image + overlay text) --- */
 .hero {
     position: relative;
@@ -147,6 +152,11 @@ img {
     font-weight: 400;
     letter-spacing: 0.05em;
     color: var(--white);
+}
+
+/* --- Product Info (desktop only, right column) --- */
+.product-info {
+    display: none;
 }
 
 /* --- Accordions --- */
@@ -920,13 +930,22 @@ img {
 
 /* --- Desktop (min-width: 768px) --- */
 @media (min-width: 768px) {
-    /* Hero: Balenciaga editorial layout - contained image + text below */
+    /* Split layout: image left, info right */
+    .product-page {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: 100vh;
+    }
+
     .hero {
         min-height: auto;
-        flex-direction: column;
         align-items: center;
-        justify-content: flex-start;
-        padding: 4rem 2rem 3rem;
+        justify-content: center;
+        padding: 3rem 2rem;
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        background: var(--off-white);
     }
 
     .hero__image {
@@ -934,8 +953,8 @@ img {
         inset: auto;
         width: auto;
         height: auto;
-        max-width: 340px;
-        max-height: 55vh;
+        max-width: 85%;
+        max-height: 70vh;
         object-fit: contain;
         object-position: center;
         margin: 0 auto;
@@ -946,29 +965,78 @@ img {
     }
 
     .hero__content {
-        position: relative;
-        padding: 2.5rem 2rem 0;
-        max-width: 600px;
+        display: none;
     }
 
-    .hero__title {
-        font-size: 2.4rem;
+    /* Right column: product info */
+    .accordions {
+        padding: 4rem 3rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
-    .hero__tag {
+    .accordions__inner {
+        max-width: 100%;
+    }
+
+    /* Show product info at top of accordions on desktop */
+    .accordions__inner::before {
+        content: '';
+        display: block;
+    }
+
+    .product-info {
+        display: block;
+        margin-bottom: 2.5rem;
+    }
+
+    .product-info__tag {
+        display: inline-block;
         font-size: 0.6rem;
-        padding: 0.4rem 1.2rem;
-        color: rgba(255, 255, 255, 0.6);
-        border-color: rgba(255, 255, 255, 0.25);
+        font-weight: 500;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--grey-400);
+        border: 1px solid var(--grey-200);
+        padding: 0.35rem 1rem;
+        margin-bottom: 1.2rem;
     }
 
-    .hero__subtitle {
-        font-size: 0.75rem;
-        color: rgba(255, 255, 255, 0.5);
+    .product-info__title {
+        font-family: var(--font-heading);
+        font-size: 2.4rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        line-height: 1.1;
+        margin-bottom: 0.4rem;
+        color: var(--black);
     }
 
-    .hero__price {
+    .product-info__subtitle {
+        font-size: 0.7rem;
+        font-weight: 400;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--grey-400);
+        margin-bottom: 1rem;
+    }
+
+    .product-info__price {
         font-size: 1.05rem;
+        font-weight: 400;
+        letter-spacing: 0.05em;
+        color: var(--black);
+    }
+
+    .accordion__header {
+        font-size: 0.8rem;
+        padding: 1.6rem 0;
+    }
+
+    .accordion__text {
+        font-size: 0.92rem;
     }
 
     .sticky-bar__btn {
@@ -979,24 +1047,6 @@ img {
 
     .sticky-bar__inner {
         max-width: 800px;
-    }
-
-    /* Accordions wider on tablet+ */
-    .accordions {
-        padding: 3rem 2rem;
-    }
-
-    .accordions__inner {
-        max-width: 700px;
-    }
-
-    .accordion__header {
-        font-size: 0.8rem;
-        padding: 1.6rem 0;
-    }
-
-    .accordion__text {
-        font-size: 0.92rem;
     }
 
     /* Gallery: contained on tablet */
@@ -1050,35 +1100,28 @@ img {
 /* --- Large Desktop (min-width: 1024px) --- */
 @media (min-width: 1024px) {
     .hero {
-        padding: 5rem 3rem 3.5rem;
+        padding: 4rem 3rem;
     }
 
     .hero__image {
-        max-width: 400px;
-        max-height: 60vh;
+        max-width: 80%;
+        max-height: 75vh;
     }
 
-    .hero__content {
-        padding: 3rem 2rem 0;
-        max-width: 700px;
+    .accordions {
+        padding: 5rem 4rem;
     }
 
-    .hero__title {
+    .product-info__title {
         font-size: 3rem;
     }
 
-    .hero__subtitle {
-        font-size: 0.8rem;
-        letter-spacing: 0.25em;
+    .product-info__subtitle {
+        font-size: 0.75rem;
     }
 
-    .hero__price {
+    .product-info__price {
         font-size: 1.15rem;
-    }
-
-    /* Two-column layout: content left, gallery right */
-    .accordions {
-        padding: 4rem 3rem;
     }
 
     .accordions__inner {
@@ -1163,21 +1206,16 @@ img {
 
 /* --- Extra large Desktop (min-width: 1400px) --- */
 @media (min-width: 1400px) {
-    .hero {
-        padding: 6rem 3rem 4rem;
-    }
-
     .hero__image {
-        max-width: 450px;
-        max-height: 65vh;
+        max-width: 75%;
     }
 
-    .hero__title {
+    .accordions {
+        padding: 6rem 5rem;
+    }
+
+    .product-info__title {
         font-size: 3.5rem;
-    }
-
-    .hero__content {
-        max-width: 800px;
     }
 
     .accordions__inner,
