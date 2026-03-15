@@ -73,6 +73,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (overlay) overlay.addEventListener('click', closeModal);
         if (closeBtn) closeBtn.addEventListener('click', closeModal);
 
+        // All elements with data-open-modal
+        document.querySelectorAll('[data-open-modal]').forEach(btn => {
+            btn.addEventListener('click', openModal);
+        });
+
         // ESC key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && modal.classList.contains('is-open')) {
