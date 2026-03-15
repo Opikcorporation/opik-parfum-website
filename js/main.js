@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const bar = document.getElementById('stickyBar');
         if (!bar) return;
 
-        // Show after scrolling past hero
+        // Show after scrolling 30% past hero
         const hero = document.querySelector('.hero');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     bar.classList.remove('is-visible');
                 }
             });
-        }, { threshold: 0 });
+        }, { threshold: 0.4 });
 
         if (hero) observer.observe(hero);
     };

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>OPIK | Informations légales</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=cal-sans@1&display=swap" rel="stylesheet">
+    <meta name="description" content="Mentions légales, politique de confidentialité et cookies du site OPIK.">
+    <style>
+        .legal {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem 4rem;
+        }
+
+        .legal__back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--grey-400);
+            text-decoration: none;
+            margin-bottom: 2.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .legal__back:hover {
+            color: var(--black);
+        }
+
+        .legal__back-arrow {
+            font-size: 1rem;
+            line-height: 1;
+        }
+
+        .legal__page-title {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 3rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--grey-200);
+        }
+
+        .legal__nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--grey-100);
+        }
+
+        .legal__nav-link {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--grey-600);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .legal__nav-link:hover {
+            color: var(--black);
+        }
+
+        .legal__section {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--grey-100);
+        }
+
+        .legal__section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .legal__title {
+            font-family: var(--font-heading);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .legal__subtitle {
+            font-family: var(--font-heading);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .legal__text {
+            font-size: 0.85rem;
+            font-weight: 300;
+            line-height: 1.8;
+            color: var(--grey-800);
+            margin-bottom: 0.8rem;
+        }
+
+        .legal__text:last-child {
+            margin-bottom: 0;
+        }
+
+        .legal__list {
+            list-style: none;
+            padding: 0;
+            margin: 0.5rem 0 0.8rem;
+        }
+
+        .legal__list li {
+            font-size: 0.85rem;
+            font-weight: 300;
+            line-height: 1.8;
+            color: var(--grey-800);
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .legal__list li::before {
+            content: '·';
+            position: absolute;
+            left: 0;
+            color: var(--grey-400);
+        }
+
+        .legal__footer {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid var(--grey-200);
+        }
+
+        .legal__footer-text {
+            font-size: 0.65rem;
+            color: var(--grey-400);
+            letter-spacing: 0.05em;
+        }
+
+        @media (min-width: 768px) {
+            .legal {
+                padding: 4rem 2rem 5rem;
+            }
+
+            .legal__page-title {
+                font-size: 1.6rem;
+            }
+
+            .legal__nav {
+                flex-direction: row;
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="legal">
+
+        <a href="index.html" class="legal__back">
+            <span class="legal__back-arrow">←</span>
+            Retour
+        </a>
+
+        <h1 class="legal__page-title">Informations légales</h1>
+
+        <!-- Navigation -->
+        <nav class="legal__nav">
+            <a href="#mentions" class="legal__nav-link">Mentions légales</a>
+            <a href="#confidentialite" class="legal__nav-link">Confidentialité</a>
+            <a href="#cookies" class="legal__nav-link">Cookies</a>
+        </nav>
+
+        <!-- 1. Mentions légales -->
+        <section class="legal__section" id="mentions">
+            <h2 class="legal__title">Mentions légales</h2>
+
+            <h3 class="legal__subtitle">Éditeur du site</h3>
+            <p class="legal__text">
+                Le site opikparfumwebsite.vercel.app est édité par OPIK, marque de parfumerie indépendante.
+            </p>
+            <p class="legal__text">
+                Responsable de la publication : Alessio Opik<br>
+                Email : <a href="mailto:contact@opik-parfum.com" style="color: inherit;">contact@opik-parfum.com</a>
+            </p>
+
+            <h3 class="legal__subtitle">Hébergement</h3>
+            <p class="legal__text">
+                Le site est hébergé par Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis.<br>
+                Site : <a href="https://vercel.com" style="color: inherit;" target="_blank" rel="noopener">vercel.com</a>
+            </p>
+
+            <h3 class="legal__subtitle">Propriété intellectuelle</h3>
+            <p class="legal__text">
+                L'ensemble des contenus présents sur le site (textes, images, photographies, logos, typographies, design, code source) sont la propriété exclusive d'OPIK ou de ses partenaires et sont protégés par les lois françaises et internationales relatives à la propriété intellectuelle.
+            </p>
+            <p class="legal__text">
+                Toute reproduction, représentation, modification, publication ou adaptation de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite sans l'autorisation écrite préalable d'OPIK.
+            </p>
+
+            <h3 class="legal__subtitle">Responsabilité</h3>
+            <p class="legal__text">
+                OPIK s'efforce de fournir des informations aussi précises que possible sur le site. Toutefois, OPIK ne pourra être tenu responsable des omissions, des inexactitudes et des carences dans la mise à jour, qu'elles soient de son fait ou du fait des tiers partenaires qui lui fournissent ces informations.
+            </p>
+            <p class="legal__text">
+                Les informations présentes sur le site sont données à titre indicatif et sont susceptibles d'évoluer. Le site peut contenir des liens vers d'autres sites dont OPIK ne maîtrise pas le contenu.
+            </p>
+        </section>
+
+        <!-- 2. Politique de confidentialité -->
+        <section class="legal__section" id="confidentialite">
+            <h2 class="legal__title">Politique de confidentialité</h2>
+
+            <h3 class="legal__subtitle">Données collectées</h3>
+            <p class="legal__text">
+                Dans le cadre de l'inscription à la liste d'attente, OPIK collecte les données personnelles suivantes :
+            </p>
+            <ul class="legal__list">
+                <li>Prénom</li>
+                <li>Adresse e-mail</li>
+            </ul>
+            <p class="legal__text">
+                Ces données sont collectées uniquement lorsque l'utilisateur remplit et valide volontairement le formulaire d'inscription à la liste d'attente.
+            </p>
+
+            <h3 class="legal__subtitle">Finalité du traitement</h3>
+            <p class="legal__text">
+                Les données collectées sont utilisées exclusivement pour :
+            </p>
+            <ul class="legal__list">
+                <li>Confirmer l'inscription à la liste d'attente par e-mail</li>
+                <li>Informer l'utilisateur du lancement du produit Nuage d'Opik</li>
+                <li>Communiquer des informations relatives au produit (disponibilité, prix, éditions)</li>
+            </ul>
+
+            <h3 class="legal__subtitle">Base légale</h3>
+            <p class="legal__text">
+                Le traitement des données repose sur le consentement de l'utilisateur (article 6.1.a du RGPD), recueilli lors de la soumission du formulaire.
+            </p>
+
+            <h3 class="legal__subtitle">Destinataires des données</h3>
+            <p class="legal__text">
+                Les données sont transmises via le service EmailJS (EmailJS, Inc.) pour l'envoi des e-mails de confirmation. Aucune donnée n'est vendue, cédée ou partagée avec des tiers à des fins commerciales.
+            </p>
+
+            <h3 class="legal__subtitle">Durée de conservation</h3>
+            <p class="legal__text">
+                Les données personnelles sont conservées pour la durée nécessaire à la finalité du traitement, soit jusqu'au lancement commercial du produit ou jusqu'à la demande de suppression par l'utilisateur. En l'absence de lancement, les données seront supprimées dans un délai de 24 mois suivant la collecte.
+            </p>
+
+            <h3 class="legal__subtitle">Droits de l'utilisateur</h3>
+            <p class="legal__text">
+                Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez des droits suivants :
+            </p>
+            <ul class="legal__list">
+                <li>Droit d'accès à vos données personnelles</li>
+                <li>Droit de rectification de vos données</li>
+                <li>Droit à l'effacement de vos données</li>
+                <li>Droit à la limitation du traitement</li>
+                <li>Droit à la portabilité de vos données</li>
+                <li>Droit d'opposition au traitement</li>
+                <li>Droit de retirer votre consentement à tout moment</li>
+            </ul>
+            <p class="legal__text">
+                Pour exercer ces droits, vous pouvez nous contacter à l'adresse : <a href="mailto:contact@opik-parfum.com" style="color: inherit;">contact@opik-parfum.com</a>. Nous répondrons à votre demande dans un délai de 30 jours.
+            </p>
+            <p class="legal__text">
+                Vous disposez également du droit d'introduire une réclamation auprès de la CNIL (Commission Nationale de l'Informatique et des Libertés) : <a href="https://www.cnil.fr" style="color: inherit;" target="_blank" rel="noopener">www.cnil.fr</a>.
+            </p>
+
+            <h3 class="legal__subtitle">Sécurité</h3>
+            <p class="legal__text">
+                OPIK met en œuvre les mesures techniques et organisationnelles appropriées pour protéger vos données personnelles contre la destruction, la perte, l'altération ou la divulgation non autorisée. Les communications sont chiffrées via le protocole HTTPS.
+            </p>
+        </section>
+
+        <!-- 3. Cookies -->
+        <section class="legal__section" id="cookies">
+            <h2 class="legal__title">Politique de cookies</h2>
+
+            <h3 class="legal__subtitle">Qu'est-ce qu'un cookie ?</h3>
+            <p class="legal__text">
+                Un cookie est un petit fichier texte déposé sur votre terminal (ordinateur, smartphone, tablette) lors de la visite d'un site web. Il permet au site de mémoriser certaines informations pour faciliter votre navigation.
+            </p>
+
+            <h3 class="legal__subtitle">Cookies utilisés sur ce site</h3>
+            <p class="legal__text">
+                Le site OPIK utilise exclusivement le stockage local du navigateur (localStorage) à des fins de fonctionnement :
+            </p>
+            <ul class="legal__list">
+                <li><strong>opik_signed_up</strong> : mémorise si l'utilisateur s'est inscrit à la liste d'attente, afin de ne pas réafficher le formulaire</li>
+                <li><strong>opik_signups</strong> : compteur local du nombre d'inscriptions</li>
+                <li><strong>opik_waitlist_code</strong> : conserve le code unique attribué lors de l'inscription</li>
+            </ul>
+
+            <h3 class="legal__subtitle">Cookies tiers</h3>
+            <p class="legal__text">
+                Le site ne dépose aucun cookie tiers. Il ne contient aucun outil de tracking, d'analyse statistique (pas de Google Analytics), ni de publicité. Les polices de caractères sont chargées depuis Google Fonts et Fontshare, qui peuvent déposer des cookies techniques nécessaires à leur fonctionnement.
+            </p>
+
+            <h3 class="legal__subtitle">Gestion des cookies</h3>
+            <p class="legal__text">
+                Vous pouvez à tout moment supprimer les données de localStorage via les paramètres de votre navigateur (Paramètres → Confidentialité → Données des sites → Supprimer). Étant donné que le site n'utilise que des données strictement nécessaires au fonctionnement, aucune bannière de consentement n'est requise conformément aux directives de la CNIL.
+            </p>
+        </section>
+
+        <!-- Footer -->
+        <div class="legal__footer">
+            <p class="legal__footer-text">© 2026 OPIK. Tous droits réservés. Dernière mise à jour : 15 mars 2026.</p>
+        </div>
+
+    </main>
+
+</body>
+</html>
