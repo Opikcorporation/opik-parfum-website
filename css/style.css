@@ -1049,17 +1049,33 @@ img {
         max-width: 800px;
     }
 
-    /* Gallery: contained on tablet */
+    /* Gallery: 4-column grid on desktop */
     .gallery {
-        max-width: 500px;
-        margin-left: auto;
-        margin-right: auto;
+        max-width: 100%;
         margin-top: 3rem;
+        padding: 0 2rem;
     }
 
     .gallery__track {
-        height: 400px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        overflow: visible;
+        scroll-snap-type: none;
+        height: auto;
         max-height: none;
+    }
+
+    .gallery__slide {
+        min-width: 0;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 4;
+        scroll-snap-align: none;
+    }
+
+    .gallery__dots {
+        display: none;
     }
 
     /* Reviews wider */
@@ -1134,14 +1150,13 @@ img {
     }
 
     .gallery {
-        max-width: 550px;
-        margin-left: auto;
-        margin-right: auto;
+        max-width: 100%;
+        padding: 0 3rem;
         margin-top: 0;
     }
 
     .gallery__track {
-        height: 450px;
+        gap: 1.25rem;
     }
 
     .reviews {
@@ -1224,11 +1239,11 @@ img {
     }
 
     .gallery {
-        max-width: 600px;
+        padding: 0 4rem;
     }
 
     .gallery__track {
-        height: 500px;
+        gap: 1.5rem;
     }
 
     .sticky-bar__inner,
