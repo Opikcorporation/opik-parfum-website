@@ -271,7 +271,6 @@ document.addEventListener('DOMContentLoaded', () => {
         let startX = 0;
         let deltaX = 0;
         let isDragging = false;
-        let autoplayInterval;
 
         // Create dots
         slides.forEach((_, i) => {
@@ -293,13 +292,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const next = () => goTo(current + 1);
 
-        // Autoplay
-        const startAutoplay = () => {
-            stopAutoplay();
-            autoplayInterval = setInterval(next, 3500);
-        };
-        const stopAutoplay = () => clearInterval(autoplayInterval);
-
         // Touch events
         let touchStartY = 0;
         let isHorizontalSwipe = null;
@@ -310,7 +302,6 @@ document.addEventListener('DOMContentLoaded', () => {
             isDragging = true;
             isHorizontalSwipe = null;
             deltaX = 0;
-            stopAutoplay();
             track.style.transition = 'none';
         }, { passive: true });
 
@@ -342,14 +333,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 goTo(current);
             }
             deltaX = 0;
-            startAutoplay();
         });
 
         // Mouse drag
         track.addEventListener('mousedown', (e) => {
             startX = e.clientX;
             isDragging = true;
-            stopAutoplay();
             track.style.transition = 'none';
             e.preventDefault();
         });
@@ -371,10 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 goTo(current);
             }
             deltaX = 0;
-            startAutoplay();
         });
-
-        startAutoplay();
     };
 
     // --- Init ---
