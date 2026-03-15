@@ -1172,7 +1172,7 @@ img {
     .gallery {
         max-width: 100%;
         padding: 0 3rem;
-        margin-top: 0;
+        margin-top: 6rem;
     }
 
     .gallery__track {
@@ -1260,6 +1260,7 @@ img {
 
     .gallery {
         padding: 0 4rem;
+        margin-top: 6rem;
     }
 
     .gallery__track {
