@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     bar.classList.remove('is-visible');
                 }
             });
-        }, { threshold: 0.4 });
+        }, { threshold: 0.95 });
 
         if (hero) observer.observe(hero);
     };
