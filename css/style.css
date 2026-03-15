@@ -920,43 +920,55 @@ img {
 
 /* --- Desktop (min-width: 768px) --- */
 @media (min-width: 768px) {
+    /* Hero: Balenciaga editorial layout - contained image + text below */
     .hero {
-        min-height: 75vh;
+        min-height: auto;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 4rem 2rem 3rem;
     }
 
     .hero__image {
-        object-position: center 30%;
+        position: relative;
+        inset: auto;
+        width: auto;
+        height: auto;
+        max-width: 340px;
+        max-height: 55vh;
+        object-fit: contain;
+        object-position: center;
+        margin: 0 auto;
     }
 
     .hero__overlay {
-        background: linear-gradient(
-            to top,
-            rgba(0, 0, 0, 0.75) 0%,
-            rgba(0, 0, 0, 0.3) 50%,
-            rgba(0, 0, 0, 0.15) 100%
-        );
-    }
-
-    .hero__title {
-        font-size: 2.8rem;
+        display: none;
     }
 
     .hero__content {
-        padding: 0 3rem 4rem;
-        max-width: 700px;
+        position: relative;
+        padding: 2.5rem 2rem 0;
+        max-width: 600px;
+    }
+
+    .hero__title {
+        font-size: 2.4rem;
     }
 
     .hero__tag {
-        font-size: 0.65rem;
+        font-size: 0.6rem;
         padding: 0.4rem 1.2rem;
+        color: rgba(255, 255, 255, 0.6);
+        border-color: rgba(255, 255, 255, 0.25);
     }
 
     .hero__subtitle {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.5);
     }
 
     .hero__price {
-        font-size: 1.1rem;
+        font-size: 1.05rem;
     }
 
     .sticky-bar__btn {
@@ -1038,27 +1050,30 @@ img {
 /* --- Large Desktop (min-width: 1024px) --- */
 @media (min-width: 1024px) {
     .hero {
-        min-height: 70vh;
+        padding: 5rem 3rem 3.5rem;
+    }
+
+    .hero__image {
+        max-width: 400px;
+        max-height: 60vh;
     }
 
     .hero__content {
-        padding: 0 5rem 5rem;
-        text-align: center;
-        max-width: 800px;
-        margin: 0 auto;
+        padding: 3rem 2rem 0;
+        max-width: 700px;
     }
 
     .hero__title {
-        font-size: 3.5rem;
+        font-size: 3rem;
     }
 
     .hero__subtitle {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
         letter-spacing: 0.25em;
     }
 
     .hero__price {
-        font-size: 1.2rem;
+        font-size: 1.15rem;
     }
 
     /* Two-column layout: content left, gallery right */
@@ -1148,12 +1163,21 @@ img {
 
 /* --- Extra large Desktop (min-width: 1400px) --- */
 @media (min-width: 1400px) {
+    .hero {
+        padding: 6rem 3rem 4rem;
+    }
+
+    .hero__image {
+        max-width: 450px;
+        max-height: 65vh;
+    }
+
     .hero__title {
-        font-size: 4rem;
+        font-size: 3.5rem;
     }
 
     .hero__content {
-        max-width: 900px;
+        max-width: 800px;
     }
 
     .accordions__inner,
