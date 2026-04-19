@@ -226,17 +226,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Disable button while sending
             btn.disabled = true;
-            btn.textContent = 'Envoi...';
+            btn.querySelector('.btn__text').textContent = 'Envoi...';
 
             // Check if email already exists in Supabase
             if (supabaseClient) {
                 try {
                     const { data: exists } = await supabaseClient.rpc('check_email_exists', { check_email: email });
                     if (exists) {
-                        btn.textContent = 'Déjà inscrit';
+                        btn.querySelector('.btn__text').textContent = 'Déjà inscrit';
                         setTimeout(() => {
                             btn.disabled = false;
-                            btn.textContent = 'Rejoindre la liste';
+                            btn.querySelector('.btn__text').textContent = 'Confirmer';
                         }, 2000);
                         return;
                     }
