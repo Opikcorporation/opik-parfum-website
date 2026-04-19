@@ -86,11 +86,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // --- Waitlist counter (base 19, +2/week, persisted) ---
+    // --- Waitlist counter (base 12, +1/week, persisted) ---
     const getWaitlistCount = () => {
-        const BASE_COUNT = 19;
-        const LAUNCH_DATE = new Date('2026-03-15'); // date de lancement
-        const INCREMENT_PER_WEEK = 2;
+        const BASE_COUNT = 12;
+        const LAUNCH_DATE = new Date('2026-04-19'); // date de référence
+        const INCREMENT_PER_WEEK = 1;
 
         const now = new Date();
         const diffMs = now - LAUNCH_DATE;
