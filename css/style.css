@@ -31,6 +31,8 @@ html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
+    /* Fix Instagram WebView vh bug */
+    height: -webkit-fill-available;
 }
 
 body {
@@ -39,6 +41,8 @@ body {
     color: var(--black);
     line-height: 1.5;
     overflow-x: hidden;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
 }
 
 a {
@@ -72,6 +76,7 @@ img {
     position: relative;
     min-height: 100vh;
     min-height: 100dvh;
+    min-height: -webkit-fill-available;
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -585,9 +590,10 @@ img {
     border-radius: 12px 12px 0 0;
     transform: translateY(100%);
     transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    max-height: 90vh;
-    max-height: 90dvh;
+    max-height: 85vh;
+    max-height: 85dvh;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .modal.is-open .modal__content {
