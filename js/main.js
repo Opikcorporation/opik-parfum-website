@@ -6,7 +6,16 @@
 // --- Supabase config ---
 const SUPABASE_URL = 'https://oogfginftwzklbayxhmm.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9vZ2ZnaW5mdHd6a2xiYXl4aG1tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1OTgwNDYsImV4cCI6MjA5MjE3NDA0Nn0._cEaZxjF7-QDkW7y-0rWk2s3jbP5AOyllIUiKu9Xme4';
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+let supabaseClient = null;
+try {
+    const sb = window.supabase;
+    if (sb && sb.createClient) {
+        supabaseClient = sb.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    }
+} catch (e) {
+    console.warn('Supabase init error:', e);
+}
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -104,11 +113,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Real signups from Supabase
         let realSignups = 0;
-        try {
-            const { data } = await supabase.rpc('get_waitlist_count');
-            if (data !== null) realSignups = data;
-        } catch (e) {
-            console.warn('Supabase count error:', e);
+        if (supabaseClient) {
+            try {
+                const { data } = await supabaseClient.rpc('get_waitlist_count');
+                if (data !== null) realSignups = data;
+            } catch (e) {
+                console.warn('Supabase count error:', e);
+            }
         }
 
         return BASE_COUNT + weeklyBonus + realSignups;
@@ -218,32 +229,36 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.textContent = 'Envoi...';
 
             // Check if email already exists in Supabase
-            try {
-                const { data: exists } = await supabase.rpc('check_email_exists', { check_email: email });
-                if (exists) {
-                    btn.textContent = 'Déjà inscrit';
-                    setTimeout(() => {
-                        btn.disabled = false;
-                        btn.textContent = 'Rejoindre la liste';
-                    }, 2000);
-                    return;
+            if (supabaseClient) {
+                try {
+                    const { data: exists } = await supabaseClient.rpc('check_email_exists', { check_email: email });
+                    if (exists) {
+                        btn.textContent = 'Déjà inscrit';
+                        setTimeout(() => {
+                            btn.disabled = false;
+                            btn.textContent = 'Rejoindre la liste';
+                        }, 2000);
+                        return;
+                    }
+                } catch (e) {
+                    console.warn('Email check error:', e);
                 }
-            } catch (e) {
-                console.warn('Email check error:', e);
             }
 
             // Generate unique waitlist code
             const waitlistCode = generateWaitlistCode();
 
             // Save to Supabase
-            try {
-                await supabase.from('waitlist_signups').insert({
-                    name: name,
-                    email: email,
-                    waitlist_code: waitlistCode
-                });
-            } catch (err) {
-                console.warn('Supabase insert error:', err);
+            if (supabaseClient) {
+                try {
+                    await supabaseClient.from('waitlist_signups').insert({
+                        name: name,
+                        email: email,
+                        waitlist_code: waitlistCode
+                    });
+                } catch (err) {
+                    console.warn('Supabase insert error:', err);
+                }
             }
 
             // Send emails via EmailJS
