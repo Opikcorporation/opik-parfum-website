@@ -3,6 +3,11 @@
    JavaScript interactions
    ============================================ */
 
+// --- Supabase config ---
+const SUPABASE_URL = 'https://oogfginftwzklbayxhmm.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9vZ2ZnaW5mdHd6a2xiYXl4aG1tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1OTgwNDYsImV4cCI6MjA5MjE3NDA0Nn0._cEaZxjF7-QDkW7y-0rWk2s3jbP5AOyllIUiKu9Xme4';
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- Scroll fade-in animations ---
@@ -86,10 +91,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // --- Waitlist counter (base 12, +1/week, persisted) ---
-    const getWaitlistCount = () => {
+    // --- Waitlist counter (base 12, +1/week + real signups from Supabase) ---
+    const getWaitlistCount = async () => {
         const BASE_COUNT = 12;
-        const LAUNCH_DATE = new Date('2026-04-19'); // date de référence
+        const LAUNCH_DATE = new Date('2026-04-19');
         const INCREMENT_PER_WEEK = 1;
 
         const now = new Date();
@@ -97,22 +102,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const diffWeeks = Math.max(0, Math.floor(diffMs / (7 * 24 * 60 * 60 * 1000)));
         const weeklyBonus = diffWeeks * INCREMENT_PER_WEEK;
 
-        // Signups stored in localStorage
-        const signups = parseInt(localStorage.getItem('opik_signups') || '0', 10);
+        // Real signups from Supabase
+        let realSignups = 0;
+        try {
+            const { data } = await supabase.rpc('get_waitlist_count');
+            if (data !== null) realSignups = data;
+        } catch (e) {
+            console.warn('Supabase count error:', e);
+        }
 
-        return BASE_COUNT + weeklyBonus + signups;
+        return BASE_COUNT + weeklyBonus + realSignups;
     };
 
     const animateCounter = () => {
         const counterEl = document.getElementById('waitlistCount');
         if (!counterEl) return;
 
-        const target = getWaitlistCount();
-        counterEl.textContent = target;
-
         const duration = 1500;
 
-        const runAnimation = () => {
+        const runAnimation = (target) => {
             const start = performance.now();
             const update = (now) => {
                 const elapsed = now - start;
@@ -129,15 +137,19 @@ document.addEventListener('DOMContentLoaded', () => {
             requestAnimationFrame(update);
         };
 
+        // Load initial count
+        getWaitlistCount().then(target => {
+            counterEl.textContent = target;
+        });
+
         // Animate when modal opens
         const modal = document.getElementById('waitlistModal');
         if (modal) {
             const obs = new MutationObserver(() => {
                 if (modal.classList.contains('is-open')) {
-                    // Refresh count each time modal opens
-                    const newTarget = getWaitlistCount();
-                    counterEl.textContent = newTarget;
-                    runAnimation();
+                    getWaitlistCount().then(target => {
+                        runAnimation(target);
+                    });
                 }
             });
             obs.observe(modal, { attributes: true, attributeFilter: ['class'] });
@@ -178,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!form) return;
 
-        // Check if already signed up
+        // Check if already signed up (localStorage flag)
         if (localStorage.getItem('opik_signed_up')) {
             showThanksState(localStorage.getItem('opik_waitlist_code'));
         }
@@ -201,15 +213,43 @@ document.addEventListener('DOMContentLoaded', () => {
             const email = emailInput.value.trim();
             if (!name || !email) return;
 
-            // Generate unique waitlist code
-            const waitlistCode = generateWaitlistCode();
-
             // Disable button while sending
             btn.disabled = true;
             btn.textContent = 'Envoi...';
 
+            // Check if email already exists in Supabase
             try {
-                // Send confirmation email to the customer
+                const { data: exists } = await supabase.rpc('check_email_exists', { check_email: email });
+                if (exists) {
+                    btn.textContent = 'Déjà inscrit';
+                    setTimeout(() => {
+                        btn.disabled = false;
+                        btn.textContent = 'Rejoindre la liste';
+                    }, 2000);
+                    return;
+                }
+            } catch (e) {
+                console.warn('Email check error:', e);
+            }
+
+            // Generate unique waitlist code
+            const waitlistCode = generateWaitlistCode();
+
+            // Save to Supabase
+            try {
+                await supabase.from('waitlist_signups').insert({
+                    name: name,
+                    email: email,
+                    waitlist_code: waitlistCode
+                });
+            } catch (err) {
+                console.warn('Supabase insert error:', err);
+            }
+
+            // Send emails via EmailJS
+            try {
+                const currentCount = await getWaitlistCount();
+
                 await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_CONFIRMATION, {
                     to_email: email,
                     to_name: name,
@@ -218,29 +258,26 @@ document.addEventListener('DOMContentLoaded', () => {
                     waitlist_code: waitlistCode
                 });
 
-                // Send notification email to owner
                 await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_NOTIFICATION, {
                     customer_name: name,
                     customer_email: email,
                     signup_date: new Date().toLocaleDateString('fr-FR'),
-                    waitlist_count: getWaitlistCount() + 1,
+                    waitlist_count: currentCount,
                     waitlist_code: waitlistCode
                 });
             } catch (err) {
                 console.warn('EmailJS error:', err);
-                // Continue even if email fails, the signup still counts
             }
 
-            // Save code & signup to localStorage
+            // Save local flag so user sees "already signed up" on return
             localStorage.setItem('opik_waitlist_code', waitlistCode);
-            const signups = parseInt(localStorage.getItem('opik_signups') || '0', 10);
-            localStorage.setItem('opik_signups', signups + 1);
             localStorage.setItem('opik_signed_up', 'true');
 
             // Update counter display
             const counterEl = document.getElementById('waitlistCount');
             if (counterEl) {
-                counterEl.textContent = getWaitlistCount();
+                const newCount = await getWaitlistCount();
+                counterEl.textContent = newCount;
             }
 
             // Show thank you message with code
